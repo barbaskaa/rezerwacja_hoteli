@@ -1,0 +1,153 @@
+{% extends "baza.html" %}
+
+{%  block start %}
+
+<!-- jumbotron and nav -->
+<section class="colorful jumbotron mb-0" role="banner">
+    <nav class="navbar navbar-expand-lg justify-content-between navbar-dark" role="navigation">
+        <div class="navbar-brand">
+            <a href="index.html">Hotel Spoof
+                <em>.</em>
+            </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+       
+    </nav>
+
+    <div class="container hotels-container">
+
+        <div class="row mt-1 justify-content-between">
+            <div class="col-md-8 text-white align-self-center mb-2 p-4">
+                <h1>Wybierz i zarezerwuj hotel</h1>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="search-container mb-5 pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="row my-3">
+                    
+
+                </div>
+                <div class="row mt-2 justify-content-between">
+                    <div class="filter-card">
+                        <h5>Wybierz datę przyjazdu i wyjazdu</h5>
+                        <form action="#">
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <p>
+                                        <input type="date" name="checkin" id="checkin" class="form-control">
+                                    </p>
+                                </div>
+                                <div class="col-md-12">
+                                    <p>
+                                        <input type="date" name="checkout" id="checkout" class="form-control">
+                                    </p>
+                                </div>
+                            </div>
+                           
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <input type="submit" class="btn btn-primary btn-block" value="Zatwierdź">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-9  px-4 mb-5">
+                <form>
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                    <div class="form-inline">
+                        <label class="" for="exampleFormControlSelect1">Sortuj</label>
+                        <select class="form-control" name="sortuj" id="exampleFormControlSelect1" >
+                            <option {% if sortuj == 'ASC' %} selected {%endif %} value="ASC">Cena rosnąco</option>
+                            <option {% if sortuj == 'DSC' %} selected {%endif %} value="DSC">Cena malejąco</option>
+
+
+                        </select>
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label class="" for="exampleFormControlSelect1">Wyszukaj</label>
+                            <input name="szukaj" class="form-control" value="{{szukaj}}" placeholder="Szukaj">
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                           <label class="" for="exampleFormControlSelect1">Usługi</label>
+                            <select name="uslugi" class="form-control" multiple>
+                            {% for usluga in uslugi_obiekty %}
+                            <option {%if usluga.nazwa in uslugi%}selected {%endif%} value=" {{usluga.nazwa}}">{{usluga.nazwa}}</option>
+                                {% endfor %}
+                        </select>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                     
+                            <button style="margin-top: 30px;" type="submit" class="btn btn-success">ZNAJDŹ HOTEL</button>
+                        </div>
+                </div>
+                </form>
+                
+                {% for hotel in hotele_obiekty %}
+                <div class="row search-card-result">
+                
+
+                    
+                    <div class="col-md-3">
+                       
+                    <a href="/hotel-detail/{{hotel.uid}}">
+<!--                        <img class="img-fluid" src="/media/{{hotel.images.first.images}}" alt="Card image cap">-->
+                    
+                    </a></div>
+               
+                    <div class="col-md-5">
+                        <h5>{{hotel.nazwa}}</h5>
+                        
+                        <p>
+                            {{hotel.opis}}
+                        </p>
+                        <p>
+                            {%for usluga in hotel.usluga.all %}
+                            <b> {{usluga.nazwa}}</b> |
+                            {% endfor %}
+                        </p>
+                        
+                    </div>
+                    <div class="col-md-2 border-left text-center more-offers">
+                        
+
+                        <p>{{hotel.cena}} zł / noc</p>
+                        <p>{{hotel.standard}}</p>
+                    </div>
+                    <div class="col-md-2 border-left text-center more-offers">
+                       
+                        <div class="btn btn-success">REZERWUJ </div>
+                    </div>
+                </div>
+                {% endfor %}
+               
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
