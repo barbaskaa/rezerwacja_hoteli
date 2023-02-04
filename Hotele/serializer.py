@@ -4,7 +4,7 @@ from rest_framework import serializers
 class HoteleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotele
-        fields = ['nazwa','opis','cena','standard','usluga']
+        fields = ['nazwa', 'opis', 'cena', 'standard', 'usluga']
 
 class StandardSerializer(serializers.ModelSerializer):
     class Meta:
