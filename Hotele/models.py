@@ -49,4 +49,3 @@ class RezerwacjaHotelu(models.Model):
     def __str__(self):
 
         return "Rezerwacja hotelu {} na użytkownika: {}".format(self.hotel, self.uzytkownik)
-
